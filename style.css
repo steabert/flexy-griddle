@@ -1,0 +1,146 @@
+body {
+  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 100px;
+  font-size: 13px;
+}
+
+.surface {
+  --control-bar-height: 32px;
+  --viewport-minimum-width: 480px;
+  --viewport-minimum-height: 320px;
+  background: gray;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 20px;
+  left: 10px;
+  bottom: 200px;
+  right: 10px;
+}
+
+.surface .backplate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  max-height: 100%;
+  max-width: 100%;
+  outline: 3px solid black;
+  min-width: var(--viewport-minimum-width);
+  min-height: calc(var(--viewport-minimum-height) + var(--control-bar-height));
+}
+
+.surface .viewport {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: green;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.surface .content {
+  /* nothing needed so far */
+}
+
+.surface video {
+  max-width: 100%;
+  max-height: 100%; /* does not work! need to set computed px value on resize */
+  /* width: 200px; */
+}
+
+.surface svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.surface .controls {
+  flex-grow: 0;
+  flex-shrink: 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: var(--control-bar-height);
+  background: yellow;
+  margin-top: auto;
+}
+
+.panel {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: black;
+}
+
+/* grid layout */
+.panel.grid .carousel {
+  width: 300px;
+  height: 130px;
+  background: green;
+  display: grid;
+  grid-template-rows: repeat(10, [row-head] 10px) repeat(3, [row-tail] 10px);
+  grid-template-columns: 100px;
+  grid-auto-flow: column;
+}
+
+.panel.grid .item {
+  width: 100px;
+}
+
+.panel.grid .header {
+  background: yellow;
+  height: 10px;
+  grid-row-start: minmax(1,10);
+}
+
+.panel.grid .setting {
+  background: tomato;
+  height: 30px;
+  grid-row: span 3;
+}
+
+/* flex layout */
+
+.panel.flex .carousel {
+  height: 130px;
+  background: green;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow: hidden;
+}
+
+.panel.flex .item {
+  width: 100px;
+}
+
+.panel.flex .header {
+  background: yellow;
+  height: 10px;
+  margin-bottom: 30px; /* orphan trick */
+}
+
+.panel.flex .carousel .header + .setting {
+  margin-top: -30px;
+}
+
+.panel.flex .setting {
+  background: tomato;
+  height: 30px;
+}
+
+.hidden {
+  display: none;
+}
