@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <link rel='stylesheet' type='text/css' href='style.css'>
+</head>
+
+<body>
+    <div class='surface'>
+        <div class='backplate'>
+            <div class='viewport'>
+                <div class='content'>
+                    <video autoplay muted src='https://upload.wikimedia.org/wikipedia/commons/c/c0/Big_Buck_Bunny_4K.webm'></video>
+                    <svg></svg>
+                </div>
+            </div>
+            <div class='controls'></div>
+        </div>
+    </div>
+    <div class='panel flex'>
+        <div class='carousel'>
+            <div class='header item'>Title 1</div>
+            <div class='setting item'>setting 1</div>
+            <div class='setting item'>setting 2</div>
+            <div class='setting item'>setting 3</div>
+            <div class='setting item hidden'>setting 4</div>
+            <div class='setting item'>setting 5</div>
+            <div class='header item'>Title 2</div>
+            <div class='setting item'>setting 6</div>
+            <div class='setting item'>setting 7</div>
+            <div class='header item'>Title 3</div>
+            <div class='setting item'>setting 8</div>
+            <div class='setting item'>setting 9</div>
+            <div class='header item'>Title 4</div>
+            <div class='setting item'>setting 10</div>
+            <div class='header item'>Title 5</div>
+            <div class='setting item'>setting 11</div>
+            <div class='setting item'>setting 12</div>
+            <div class='setting item'>setting 13</div>
+            <div class='setting item'>setting 14</div>
+            <div class='setting item'>setting 15</div>
+        </div>
+    </div>
+    <script>
+        let cols = 0;
+        const surface = document.querySelector('.surface')
+        const video = surface.querySelector('video')
+        const controls = surface.querySelector('.controls')
+
+        const panel = document.querySelector('.panel')
+        const carousel = panel.querySelector('.carousel')
+
+        const resize = () => {
+            // Video surface
+            const maxWidth = surface.offsetWidth
+            const maxHeight = surface.offsetHeight - controls.offsetHeight
+            video.style.maxWidth = maxWidth
+            video.style.maxHeight = maxHeight
+
+            // Carousel
+            const available = panel.offsetWidth - 50;
+            const newCols = Math.floor(available / 100);
+            if (newCols !== cols) {
+                cols = newCols
+                carousel.style.width = cols * 100;
+            }
+            console.log('resize')
+        }
+        resize()
+        window.addEventListener('resize', resize)
+    </script>
+</body>
+
+</html>
